@@ -12,3 +12,8 @@ after_success:
   - docker build -t bondar5471/multi-server ./server
   - docker build -t bondar5471/multi-worker ./worker
   
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push bondar5471/multi-client
+  - docker push bondar5471/multi-nginx
+  - docker push bondar5471/multi-server
+  - docker push bondar5471/multi-worker
