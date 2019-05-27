@@ -1,0 +1,14 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t bondar5471/react-test -f ./client/Dockerfile.dev ./client
+script:
+  - docker run bondar5471/react-test npm test -- --coverage
+after_success:
+  - docker build -t bondar5471/multi-client ./client
+  - docker build -t bondar5471/multi-nginx ./nginx
+  - docker build -t bondar5471/multi-server ./server
+  - docker build -t bondar5471/multi-worker ./worker
+  
